@@ -86,3 +86,4 @@ O Grupo Vigia de Preço oferece uma série de soluções em tecnologia, com foco
 - PJ
 - Pleno
 - Sênior
+- Remoto
