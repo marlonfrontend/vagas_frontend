@@ -50,15 +50,16 @@ Trabalho Remoto. Caso haja necessidade de reuniões de trabalho em um local espe
 ## Processo seletivo
 
 ### Seleção
-Os candidatos devem preencher o formulário fornecendo: nome, email, repositório de codigo (github, gitlab ou afins), linkedin (usaremos para verificar experiências anteriores)
-Formulário: https://forms.gle/J3EZN6PpMMGqzkox9 
+- Os candidatos devem preencher o formulário fornecendo: nome, email, repositório de codigo (github, gitlab ou afins), linkedin (usaremos para verificar experiências anteriores)
+- Formulário: https://forms.gle/J3EZN6PpMMGqzkox9 
 
 ### Entrevista
-Será realizado entrevista inicial com duração de 10 a 20m em horário que o candidato tenha disponibilidade. Se você está trabalhando podemos marcar entrevista a noite sem problemas :)
+- Será realizado entrevista inicial com duração de 10 a 20m em horário que o candidato tenha disponibilidade. 
+- Se você está trabalhando podemos marcar entrevista a noite sem problemas :)
 
 ### Teste 
-O candidato irá participar de um teste prático para analisar os conhecimentos
-O teste está disponível neste repositório https://github.com/vigiadepreco/vagas_frontend/blob/master/TESTE.md
+- O candidato irá participar de um teste prático para analisar os conhecimentos
+- O teste está disponível neste repositório https://github.com/vigiadepreco/vagas_frontend/blob/master/TESTE.md
 
 
 
