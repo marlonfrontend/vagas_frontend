@@ -58,7 +58,7 @@ Será realizado entrevista inicial com duração de 10 a 20m em horário que o c
 
 ### Teste 
 O candidato irá participar de um teste prático para analisar os conhecimentos
-O teste está disponível neste repositório https://github.com/gislainy/vaga_frontend_vigiadepreco/blob/master/TESTE.md
+O teste está disponível neste repositório https://github.com/vigiadepreco/vagas_frontend/blob/master/TESTE.md
 
 
 
