@@ -5,6 +5,20 @@
   }
 }
 
+@each $key, $value in $breakpoints {
+  @for $i from 1 through $grid-columns {
+    .col-#{$key}-#{$i} {
+      width: 100%;
+      position: relative;
+      padding-right: 15px;
+      padding-left: 15px;
+      @include break($key) {
+        flex: 0 0 #{$i / $grid-columns * 100%};
+      }
+    }
+  }
+}
+
 .row {
   display: flex;
   flex-wrap: wrap;
