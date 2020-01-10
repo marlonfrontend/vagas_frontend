@@ -1,0 +1,14 @@
+/* colors */
+$clr-primary: #a5d207;
+$clr-warning: #c1180f;
+
+/* columns */
+$grid-columns: 12 !default;
+
+/* breakpoints */
+$breakpoints: (
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px
+);

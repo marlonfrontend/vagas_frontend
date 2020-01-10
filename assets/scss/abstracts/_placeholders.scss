@@ -1,0 +1,15 @@
+/* flex */
+%flex {
+  &-center {
+    display: flex;
+    justify-content: center;
+  }
+  &-between {
+    display: flex;
+    justify-content: space-between;
+  }
+}
+
+%shadow {
+  box-shadow: 0 0 10px ;
+}
