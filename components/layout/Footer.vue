@@ -73,6 +73,7 @@
             </div>
           </div>
         </div>
+        <p class="brands">Lojas: Adidas, Americanas, Apple, Azul, Baby, Bebê Store, Beleza na Web, Camisaria Colombo, Carrefour, Casas Bahia, Centauro, Cipela, Cissa Magazine, Dafiti, Decathlon, Dell, efácil, Época Cosméticos, Extra, Fast Shop, Fnac, Girafa, Insinuante, Kabum, Kanui, Lenovo, Livraria Saraiva, Magazine Luiza, Marisa, MegaMamute, Mobly, Netshoes, Nike, Ponto Frio, Posthaus, Ricardo Eletro, Sépha Perfumaria, Sephora, Shopfato, Shoptime, Sony, Sou Barato, Submarino, Submarino Viagens, Super Muffato. <strong>Se sua marca não está listada, entre em contato com a nossa equipe</strong></p>
       </div>
     </div>
   </footer>
