@@ -1,84 +1,10 @@
 <template>
   <main>
     <Header />
-    <section class="services">
-      <div class="container">
-        <div class="row">
-          <div class="grid-md-4">
-            <div class="card">
-              <img src="~/assets/images/services/graph.png" alt="">
-              <h3>Título</h3>
-              <p>Texto corrido com informações que vão ser preenchidas depois que a página estiver pronta.</p>
-            </div>
-          </div>
-          <div class="grid-md-4">
-            <div class="card">
-              <img src="~/assets/images/services/alarm.png" alt="">
-              <h3>Título</h3>
-              <p>Texto corrido com informações que vão ser preenchidas depois que a página estiver pronta.</p>
-            </div>
-          </div>
-          <div class="grid-md-4">
-            <div class="card">
-              <img src="~/assets/images/services/notification.png" alt="">
-              <h3>Título</h3>
-              <p>Texto corrido com informações que vão ser preenchidas depois que a página estiver pronta.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-    <section class="promotional">
-      <div class="container">
-        <div class="wrapper">
-          <h2>Vídeo promocional do app</h2>
-          <h4>O vídeo mostra todas as funcionalidades e você vai conferir como funciona e ver como é fácil e simples de usar o app, falando do uso e seus benefícios.</h4>
-          <div class="video">
-            <div class="preview">
-              <img src="~/assets/images/preview.jpg" alt="">
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-    <section class="brands">
-      <div class="container">
-        <h2>Marcas do app em destaque</h2>
-        <div class="row">
-          <div class="grid-md-6">
-            <div class="info">
-              <h3>Título</h3>
-              <p>Marcação de texto para ser preenchido depois da página ficar pronta, enquanto isso segue com o texto marcando a página.</p>
-            </div>
-            <div class="info">
-              <h3>Título</h3>
-              <p>Marcação de texto para ser preenchido depois da página ficar pronta, enquanto isso segue com o texto marcando a página.</p>
-            </div>
-            <div class="info">
-              <h3>Título</h3>
-              <p>Marcação de texto para ser preenchido depois da página ficar pronta, enquanto isso segue com o texto marcando a página.</p>
-            </div>
-          </div>
-          <div class="grid-md-6">
-
-          </div>
-        </div>
-      </div>
-    </section>
-    <section class="cta-app">
-      <div class="container">
-        <div class="row">
-          <div class="grid-md-6">
-            <img src="~/assets/images/mockup-02.png" alt="">
-          </div>
-          <div class="grid-md-6 d-flex justify-content-center flex-direction-column">
-            <h2>Título</h2>
-            <h4>Informação curta e direta sobre o app divulgado na página com foco nas funcionalidades.</h4>
-          </div>
-        </div>
-      </div>
-    </section>
-
+    <Services />
+    <Promotional />
+    <Spotlight />
+    <CtaApp />
     <section class="most-popular-products">
       <div class="container">
         <div class="d-flex justify-content-between align-items-center">
@@ -93,14 +19,14 @@
                   <div class="percentage" :class="verifyPercentage(product.percentage)">
                     $ {{ formatPrice(product.percentage) }}
                   </div>
-                  <figure class="product-thumb">
+                  <figure class="product-thumb d-flex align-items-center">
                     <img :src="product.image" :alt="product.title">
                   </figure>
                   <div class="product-title">
-                    <nuxt-link to="/">{{ product.title }}</nuxt-link>
+                    {{ product.title }}
                   </div>
                   <div class="product-store">
-                    Vendido por <nuxt-link to="/">{{ product.store.name }}</nuxt-link>
+                    Vendido por <a href="http://google.com" target="_blank">{{ product.store.name }}</a>
                   </div>
                   <div class="product-price">R$ {{ formatPrice(product.price) }}</div>
                 </div>
@@ -123,12 +49,26 @@
 <script>
 import Header from '~/components/layout/Header'
 import Footer from '~/components/layout/Footer'
+import Services from '~/components/home/Services'
+import Promotional from '~/components/home/Promotional'
+import Spotlight from '~/components/home/Spotlight'
+import CtaApp from '~/components/home/CtaApp'
 import { getProductsWithStores } from '~/services'
 
 export default {
+  head: {
+    title: 'Título da página',
+    meta: [
+      { hid: 'description', name: 'description', content: 'Vaga desenvolvedor frontend na Vigia de preço' }
+    ]
+  },
   components: {
     Header,
-    Footer
+    Footer,
+    Services,
+    Promotional,
+    Spotlight,
+    CtaApp
   },
   data:() => ({
     products: [],
@@ -136,8 +76,20 @@ export default {
     swiperOption: {
       slidesPerView: 4,
       spaceBetween: 20,
-      pagination: {
-        el: '.swiper-pagination'
+      breakpoints: {
+        992: {
+          slidesPerView: 3,
+          spaceBetween: 30
+        },
+        768: {
+          slidesPerView: 2,
+          spaceBetween: 20
+        },
+        576: {
+          slidesPerView: 1,
+          spaceBetween: 30,
+          centeredSlides: true
+        }
       }
     }
   }),
@@ -157,7 +109,7 @@ export default {
       const val = (value/1).toFixed(2).replace('.', ',')
       return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.')
     },
-    verifyPercentage (value) {
+    verifyPercentage(value) {
       const res = Math.sign(value)
       switch (res) {
         case 1:
@@ -173,84 +125,8 @@ export default {
 </script>
 
 <style lang="scss">
-  .services {
-    background-color: #f7ffdc;
-    padding: 80px 0;
-    .card {
-      padding: 50px 35px;
-      text-align: center;
-      img {
-        margin: 10px 0;
-      }
-    }
-  }
-  .promotional {
-    padding: 100px 0;
-    text-align: center;
-    position: relative;
-    &::before {
-      content: "";
-      background: url('../assets/images/sh-03.svg') no-repeat right;
-      left: 0;
-      right: 0;
-      height: 750px;
-      position: absolute;
-      bottom: -200px;
-    }
-    .wrapper {
-      max-width: 1000px;
-      margin: 0 auto;
-    }
-    .video {
-      .preview {
-        position: relative;
-        &::before {
-          content: '';
-          background: url('../assets/images/play.png') no-repeat center rgba(0,0,0,0.3);
-          position: absolute;
-          transition: all 300ms ease;
-          cursor: pointer;
-          left: 0;
-          right: 0;
-          top: 0;
-          bottom: 0;
-        }
-        &:hover {
-          &::before {
-            background-color: rgba(0,0,0,0.1);
-          }
-        }
-      }
-    }
-  }
-  .brands {
-    h2 {
-      text-align: center;
-      margin-bottom: 50px;
-    }
-    .info {
-      margin-bottom: 80px;
-      p {
-        font-size: 20px;
-        font-weight: normal;
-        line-height: 2rem;
-      }
-    }
-  }
-  .cta-app {
-    position: relative;
-    &::before {
-      content: "";
-      background: url('../assets/images/sh-04.svg') no-repeat left;
-      left: 0;
-      right: 0;
-      top: -200px;
-      position: absolute;
-      bottom: -50px;
-    }
-  }
   .most-popular-products {
-    padding: 100px;
+    padding: 100px 0;
     h2 {
       font-size: 36px;
       font-weight: 600;
@@ -262,7 +138,7 @@ export default {
     }
     .swiper {
       position: relative;
-      .swiper-container {
+      &-container {
         padding: 20px 0;
       }
     }
@@ -336,9 +212,10 @@ export default {
         }
       }
       &-thumb {
+        height: 180px;
         img {
           max-width: 100%;
-          height: 180px;
+          max-height: 180px;
           display: block;
           margin: 0 auto;
         }
@@ -364,6 +241,20 @@ export default {
         font-size: 23px;
         color: #5555d9;
         font-weight: 700;
+      }
+    }
+    @media screen and (max-width: 768px) {
+      .swiper {
+        margin: 0 -15px;
+      }
+      .swiper-button-prev,
+      .swiper-button-next {
+        display: none;
+      }
+    }
+    @media screen and (max-width: 576px) {
+      .swiper {
+        margin: 0 15px;
       }
     }
   }
