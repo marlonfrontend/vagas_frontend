@@ -1,4 +1,4 @@
-#header {
+.header {
   height: 100vh;
   padding: 30px 0;
   overflow: hidden;
@@ -26,14 +26,7 @@
       }
     }
   }
-
   .container, .row {
     height: 100%;
-  }
-  .caption, .mockup {
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
   }
 }

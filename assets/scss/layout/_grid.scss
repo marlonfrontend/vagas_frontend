@@ -7,7 +7,7 @@
 
 @each $key, $value in $breakpoints {
   @for $i from 1 through $grid-columns {
-    .col-#{$key}-#{$i} {
+    .grid-#{$key}-#{$i} {
       width: 100%;
       position: relative;
       padding-right: 15px;
