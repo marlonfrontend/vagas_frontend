@@ -83,27 +83,36 @@
       <div class="container">
         <div class="d-flex justify-content-between align-items-center">
           <h2>Produtos mais acessados</h2>
-          <nuxt-link to="/">Ver todos</nuxt-link>
+          <nuxt-link to="/" class="view-all">Ver todos</nuxt-link>
         </div>
-        <div v-swiper:mySwiper="swiperOption" @someSwiperEvent="callback">
-          <div class="swiper-wrapper">
-            <div class="swiper-slide" v-for="(item, index) in products" :key="index">
-              <div class="product-item">
-                <div class="product-thumb">
-                  <img :src="item.image" :alt="item.title">
+        <div class="swiper">
+          <div v-swiper:mySwiper="swiperOption">
+            <div class="swiper-wrapper">
+              <div class="swiper-slide" v-for="(product, index) in products" :key="index">
+                <div class="product-item">
+                  <div class="percentage" :class="verifyPercentage(product.percentage)">
+                    $ {{ formatPrice(product.percentage) }}
+                  </div>
+                  <figure class="product-thumb">
+                    <img :src="product.image" :alt="product.title">
+                  </figure>
+                  <div class="product-title">
+                    <nuxt-link to="/">{{ product.title }}</nuxt-link>
+                  </div>
+                  <div class="product-store">
+                    Vendido por <nuxt-link to="/">{{ product.store.name }}</nuxt-link>
+                  </div>
+                  <div class="product-price">R$ {{ formatPrice(product.price) }}</div>
                 </div>
-                <div class="product-title">
-                  <nuxt-link to="/">Microsoft xbox one s</nuxt-link>
-                </div>
-                <div class="store">
-                  Vendido por <nuxt-link to="/">Shoptime</nuxt-link>
-                </div>
-                {{ item.name }}
-                {{ filterStores(item.storeid) }}
               </div>
             </div>
           </div>
-          <div class="swiper-pagination"></div>
+          <button class="swiper-button-prev" @click="() => this.mySwiper.slidePrev()">
+            <span class="icon arrow-left"></span>
+          </button>
+          <button class="swiper-button-next" @click="() => this.mySwiper.slideNext()">
+            <span class="icon arrow-right"></span>
+          </button>
         </div>
       </div>
     </section>
@@ -114,7 +123,7 @@
 <script>
 import Header from '~/components/layout/Header'
 import Footer from '~/components/layout/Footer'
-import axios from 'axios'
+import { getProductsWithStores } from '~/services'
 
 export default {
   components: {
@@ -122,28 +131,41 @@ export default {
     Footer
   },
   data:() => ({
+    products: [],
+    limit: 10,
     swiperOption: {
       slidesPerView: 4,
-      spaceBetween: 30,
+      spaceBetween: 20,
       pagination: {
         el: '.swiper-pagination'
       }
     }
   }),
-  async asyncData({ params }) {
-    const products = await axios.get('https://api.myjson.com/bins/1gnnec')
-    const stores = await axios.get('https://api.myjson.com/bins/nher8')
-    return { 
-      products: products.data,
-      stores: stores.data
-    }
+  mounted() {
+    this.fetchMostPopularProducts()
   },
-  methods: {
-    filterStores (idstore) {
-      for (let i = 0; i < this.stores.length; i++) {
-        if (this.stores[i].id === idstore) {
-          return this.stores[i].name
-        }
+   methods: {
+    async fetchMostPopularProducts() {
+      this.products = await getProductsWithStores( this.$axios, { limit:this.limit } )
+    },
+    nextSwiper() {
+      this.mySwiper.slideNext()
+      this.limite += 5
+      this.fetchMostPopularProducts()
+    },
+    formatPrice(value) {
+      const val = (value/1).toFixed(2).replace('.', ',')
+      return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.')
+    },
+    verifyPercentage (value) {
+      const res = Math.sign(value)
+      switch (res) {
+        case 1:
+          return 'success'
+        case -1:
+          return 'warning'
+        default:
+          return ''
       }
     }
   }
@@ -165,6 +187,16 @@ export default {
   .promotional {
     padding: 100px 0;
     text-align: center;
+    position: relative;
+    &::before {
+      content: "";
+      background: url('../assets/images/sh-03.svg') no-repeat right;
+      left: 0;
+      right: 0;
+      height: 750px;
+      position: absolute;
+      bottom: -200px;
+    }
     .wrapper {
       max-width: 1000px;
       margin: 0 auto;
@@ -206,20 +238,102 @@ export default {
     }
   }
   .cta-app {
-    //...
+    position: relative;
+    &::before {
+      content: "";
+      background: url('../assets/images/sh-04.svg') no-repeat left;
+      left: 0;
+      right: 0;
+      top: -200px;
+      position: absolute;
+      bottom: -50px;
+    }
   }
   .most-popular-products {
     padding: 100px;
     h2 {
       font-size: 36px;
-      font-weight: normal;
+      font-weight: 600;
+    }
+    .view-all {
+      font-weight: 600;
+      color: #13bc4a;
+      font-size: 18px;
+    }
+    .swiper {
+      position: relative;
+      .swiper-container {
+        padding: 20px 0;
+      }
+    }
+    .swiper-button-prev {
+      left: -70px;
+    }
+    .swiper-button-next {
+      right: -70px;
+    }
+    .swiper-button-prev,
+    .swiper-button-next {
+      background-color: #ffffff;
+      background-image: none;
+      height: 60px;
+      width: 60px;
+      border-radius: 50%;
+      border: 1px solid #999;
+      display: flex;
+      justify-content: center;
+      transition: all 200ms ease;
+      .icon {
+        border: solid #13bc4a;
+        border-width: 0 3px 3px 0;
+        display: inline-block;
+        padding: 5px;
+        transition: all 200ms ease;
+        &.arrow-left {
+          transform: rotate(135deg);
+          margin-left: 4px;
+        }
+        &.arrow-right {
+          transform: rotate(-45deg);
+          margin-right: 4px;
+        }
+      }
+      &:hover {
+        background-color: #a5d207;
+        border-color: #a5d207;
+        .icon {
+          border-color: #fff;
+        }
+      }
     }
     .product {
       &-item{
-        border: 1px solid #ccc;
+        cursor: pointer;
+        border: 2px solid #ccc;
         text-align: center;
         border-radius: 8px;
         padding: 20px;
+        transition: all 300ms ease;
+        &:hover {
+          box-shadow: 0 6px 10px rgba(0,0,0,0.16);
+        }
+        .percentage {
+          background-color: #555;
+          color: #fff;
+          position: absolute;
+          left: 0;
+          top: 17px;
+          padding: 14px 10px;
+          border-radius: 0 8px 8px 0;
+          font-size: 15px;
+          font-weight: 600;
+          &.success {
+            background-color: #13bc4a;
+          }
+          &.warning {
+            background-color: #c1180f;
+          }
+        }
       }
       &-thumb {
         img {
@@ -230,9 +344,26 @@ export default {
         }
       }
       &-title {
-        margin: 20px 0;
-        font-size: 20px;
-        height: 60px;
+        margin: 30px 0;
+        font-size: 16px;
+        font-weight: 600;
+        line-height: 1.2rem;
+        height: 55px;
+        overflow: hidden;
+      }
+      &-store {
+        font-size: 14px;
+        color: #666;
+        a {
+          font-weight: 700;
+          color: #3eaed2;
+        }
+      }
+      &-price {
+        margin: 15px 0;
+        font-size: 23px;
+        color: #5555d9;
+        font-weight: 700;
       }
     }
   }
