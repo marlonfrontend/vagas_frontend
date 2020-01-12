@@ -4,7 +4,6 @@
     @content;
   }
 }
-
 @each $key, $value in $breakpoints {
   @for $i from 1 through $grid-columns {
     .grid-#{$key}-#{$i} {
@@ -18,7 +17,6 @@
     }
   }
 }
-
 .row {
   display: flex;
   flex-wrap: wrap;
@@ -31,6 +29,9 @@
   padding-left: 15px;
   margin-right: auto;
   margin-left: auto;
+  @include break(sm) {
+    max-width: 520px;
+  }
   @include break(md) {
     max-width: 720px;
   }
