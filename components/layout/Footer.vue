@@ -6,10 +6,10 @@
           <div class="grid-md-6">
             <div class="extension">
               <img src="~/assets/images/chrome.png" alt="">
-              <div class="text">
+              <a class="link" href="javascript:void(0)" target="_blank">
                 <strong>Instale a extensão no seu Google Chrome.</strong>
                 Text de suporte do título
-              </div>
+              </a>
             </div>
           </div>
           <div class="grid-md-6">
@@ -78,3 +78,97 @@
     </div>
   </footer>
 </template>
+
+<style lang="scss" scoped>
+  .footer {
+    &-app {
+      background-color: #a5d207;
+      padding: 30px 0;
+      .extension, .app {
+        height: 100%;
+        display: flex;
+        align-items: center;
+      }
+      .extension {
+        .link {
+          color: #000;
+          margin-left: 15px;
+          line-height: 1.2rem;
+          &:hover {
+            text-decoration: underline;
+          }
+          strong {
+            display: block;
+          }
+        }
+      }
+      .app {
+        .text {
+          line-height: 1.2rem;
+        }
+        .icons {
+          display: flex;
+          img {
+            height: 45px;
+          }
+        }
+      }
+    }
+    &-content {
+      background-color: #415400;
+      padding: 20px 0;
+      h3 {
+        color: #ffffff;
+        font-size: 20px;
+      }
+    }
+    &-links {
+      margin-top: 20px;
+      ul {
+        list-style: none;
+        padding: 0;
+        li {
+          margin: 15px 0;
+          a {
+            color: #e3e6eb;
+          }
+        }
+      }
+    }
+    .brands {
+      font-size: 14px;
+      color: #ecedf0;
+      strong {
+        color: #ffffff;
+        font-weight: 700;
+      }
+    }
+  }
+  @media screen and (max-width: 768px) {
+    .footer {
+      &-app {
+        padding: 20px 0;
+        .extension {
+          display: none;
+        }
+        .app {
+          display: flex;
+          flex-direction: column;
+          align-items: normal;
+          .text {
+            margin-bottom: 20px;
+          }
+          .icons {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            img {
+              height: auto;
+              max-width: 100%;
+            }
+          }
+        }
+      }
+    }
+  }
+</style>
