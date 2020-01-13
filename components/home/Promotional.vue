@@ -5,14 +5,30 @@
         <h2>Vídeo promocional do app</h2>
         <h4>O vídeo mostra todas as funcionalidades e você vai conferir como funciona e ver como é fácil e simples de usar o app, falando do uso e seus benefícios.</h4>
         <div class="video">
-          <div class="preview">
+          <div class="preview" @click="playYoutube" v-if="!showYoutubeVideo">
             <img src="~/assets/images/preview.jpg" alt="">
+          </div>
+          <div class="video" v-else>
+            <iframe width="1000" height="565" src="https://www.youtube.com/embed/WFiHiIAo7RU/?&autoplay=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
           </div>
         </div>
       </div>
     </div>
   </section>
 </template>
+
+<script>
+export default {
+  data: () => ({
+    showYoutubeVideo: false
+  }),
+  methods: {
+    playYoutube() {
+      this.showYoutubeVideo = true
+    }
+  }
+}
+</script>
 
 <style lang="scss" scoped>
   .promotional {
@@ -27,6 +43,7 @@
       bottom: -200px;
       height: 750px;
       position: absolute;
+      z-index: -1;
     }
     .wrapper {
       max-width: 1000px;

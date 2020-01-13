@@ -37,6 +37,12 @@
   </header>
 </template>
 
+<script>
+export default {
+  name: 'Footer'
+}
+</script>
+
 <style lang="scss" scoped>
   .header {
     height: 100vh;

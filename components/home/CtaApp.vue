@@ -21,7 +21,11 @@
     </div>
   </section>
 </template>
-
+<script>
+export default {
+  name: 'CtaApp'
+}
+</script>
 <style lang="scss" scoped>
   .cta-app {
     position: relative;

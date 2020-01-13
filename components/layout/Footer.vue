@@ -79,6 +79,12 @@
   </footer>
 </template>
 
+<script>
+export default {
+  name: 'Footer'
+}
+</script>
+
 <style lang="scss" scoped>
   .footer {
     &-app {
@@ -110,6 +116,7 @@
           display: flex;
           img {
             height: 45px;
+            margin-left: 10px;
           }
         }
       }
